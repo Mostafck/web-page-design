@@ -7,8 +7,8 @@
     </head>
     <body>
 
-            <form action="{{ route('users.store') }}" method="POST">
-             @csrf
+            <form action="<?php echo e(route('users.store')); ?>" method="POST">
+             <?php echo csrf_field(); ?>
              <label for="">Name:</label>
              <input type="text" name="name">
              <br/>
@@ -17,4 +17,4 @@
              <button type="submit">save</button>
             </form>
 
-         </body>
+         </body><?php /**PATH /var/www/resources/views/create.blade.php ENDPATH**/ ?>
