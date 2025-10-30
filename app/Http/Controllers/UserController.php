@@ -7,74 +7,44 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-
     public function index()
     {
-        $users = User::all();
-        return response()->json($users);
+        $users = User::with('posts', 'comments')->get();
+        return view('users.index', compact('users'));
     }
-
 
     public function create()
     {
-         return view('users.create');
+        return view('users.create');
     }
-
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:6',
-        ]);
-
-        $validated['password'] = bcrypt($validated['password']);
-
-        $user = User::create($validated);
-
-        return response()->json(['message' => 'User created', 'user' => $user], 201);
+        User::create($request->all());
+        return redirect()->route('users.index');
     }
 
-
-    public function show(string $id)
+    public function show(User $user)
     {
-        $user = User::findOrFail($id);
-        return response()->json($user);
+        return view('users.show', compact('user'));
     }
 
-
-    public function edit(string $id)
+    public function edit(User $user)
     {
-
+        return view('users.edit', compact('user'));
     }
 
-
-    public function update(Request $request, string $id)
+    public function update(Request $request, User $user)
     {
-        $user = User::findOrFail($id);
-
-        $validated = $request->validate([
-            'name' => 'sometimes|string',
-            'email' => 'sometimes|email|unique:users,email,' . $user->id,
-            'password' => 'sometimes|min:6',
-        ]);
-
-        if (isset($validated['password'])) {
-            $validated['password'] = bcrypt($validated['password']);
-        }
-
-        $user->update($validated);
-
-        return response()->json(['message' => 'User updated', 'user' => $user]);
+        $user->update($request->all());
+        return redirect()->route('users.index');
     }
 
-    public function destroy(string $id)
+    public function destroy(User $user)
     {
-        $user = User::findOrFail($id);
         $user->delete();
-
-        return response()->json(['message' => 'User deleted']);
+        return redirect()->route('users.index');
     }
 }
+
 

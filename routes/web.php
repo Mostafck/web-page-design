@@ -4,6 +4,8 @@
  use app\Models\Users;
  use app\Models\Comment;
  use App\Http\Controllers\UserController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\CommentController;
 
  // Route::get('/', function () {
  //     return view('welcome');
@@ -12,25 +14,9 @@
  //     return 'Hello World';
  // });
 
- //practice1
 
- // Route::get('/users/create', function () {
- //     return view(view:"create");
- // });
- // Route::post('/users', function () {
- //     dd("fff");
- // })->name("users.create");
-
- //practice1
- // Route::resource('users', \App\Http\Controllers\UserController::class);
-//  Route::get('/', function () {
-//     return 'Laravel is working!';
-// });
- 
-
-Route::get('/', function () {
-    return redirect('/users');
-});
+ Route::resource('users', UserController::class);
+ Route::resource('posts', PostController::class);
+ Route::resource('comments', CommentController::class);
 
 
-Route::resource('users', UserController::class);

@@ -7,21 +7,17 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Comment extends Model
 {
-   
-    // public function user(): BelongsTo
-    // {
-    //     return $this->belongsTo(User::class);
-    // }
+    use HasFactory;
 
-    // public function post(): BelongsTo
-    // {
-    //     return $this->belongsTo(Post::class);
-    // }
-     use HasFactory;
-    protected $fillable = ['user_id', 'content'];
+    protected $fillable = ['user_id', 'post_id', 'content'];
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function post()
+    {
+        return $this->belongsTo(Post::class);
     }
 }
