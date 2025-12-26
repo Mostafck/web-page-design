@@ -7,22 +7,32 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
+namespace App\Models;
+use Illuminate\Database\Eloquent\Model;
 
+class User extends Model
+{
+    protected $fillable = ['name'];
 
-  class User extends Authenticatable
- {
-    use HasFactory, Notifiable;
-
-    public function posts()
+    public function orders()
     {
-        return $this->hasMany(Post::class);
+        return $this->hasMany(Order::class);
     }
+}
+//   class User extends Authenticatable
+//  {
+//     use HasFactory, Notifiable;
 
-    public function comments()
-    {
-        return $this->hasMany(Comment::class);
-    }
- }
+//     public function posts()
+//     {
+//         return $this->hasMany(Post::class);
+//     }
+
+//     public function comments()
+//     {
+//         return $this->hasMany(Comment::class);
+//     }
+//  }
 
 //  class User extends Model
 //  {

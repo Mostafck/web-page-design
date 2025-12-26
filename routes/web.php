@@ -6,6 +6,7 @@
  use App\Http\Controllers\UserController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
+ use App\Http\Controllers\ReportController;
 
  // Route::get('/', function () {
  //     return view('welcome');
@@ -15,8 +16,12 @@ use App\Http\Controllers\CommentController;
  // });
 
 
- Route::resource('users', UserController::class);
- Route::resource('posts', PostController::class);
- Route::resource('comments', CommentController::class);
+//  Route::resource('users', UserController::class);
+//  Route::resource('posts', PostController::class);
+//  Route::resource('comments', CommentController::class);
+
+
+
+Route::get('/reports/high-spenders', [ReportController::class, 'highSpenders']);
 
 
